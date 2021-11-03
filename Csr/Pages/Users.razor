@@ -1,0 +1,29 @@
+﻿@page "/users"
+@inject CsrDbContext ctx
+
+@if (UserList == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    foreach (var item in UserList)
+    {
+        <h1>@item.UserName</h1>
+    }
+}
+
+
+
+@code {
+
+    public List<User>? UserList { get; set; }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        UserList = await ctx.Users.ToListAsync();
+
+    }
+
+}
