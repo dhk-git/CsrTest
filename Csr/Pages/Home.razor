@@ -7,9 +7,21 @@
     <h1 class="display-4">고객지원</h1>
     <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
     <hr class="my-4">
-    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
 </div>
 
+<div class="row">
+    <div class="col-12 align-items-right">
+        <MudItem xs="12" sm="6" md="4">
+            <MudSelect T="string" Label="프로젝트" Variant="Variant.Filled" AnchorOrigin="Origin.BottomCenter">
+                <MudSelectItem Value="@("Apple Pie")" />
+                <MudSelectItem Value="@("Blackberry Pie")" />
+                <MudSelectItem Value="@("Rhubarb Pie")" />
+                <MudSelectItem Value="@("Lemon Pie")" />
+            </MudSelect>
+        </MudItem>
+    </div>
+</div>
+<br />
 <div class="row">
     <div class="col-4">
         <div class="card">
