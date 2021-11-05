@@ -1,20 +1,58 @@
 ﻿@inherits LayoutComponentBase
 
-<PageTitle>Csr</PageTitle>
+<PageTitle>CSR - HN Inc.</PageTitle>
 
-<div class="page">
-    <div class="sidebar">
+
+<MudThemeProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<MudLayout>
+    <MudAppBar>
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
+        Customer Service Report
+    </MudAppBar>
+    <MudDrawer @bind-Open="@_drawerOpen">
         <NavMenu />
+    </MudDrawer>
+    <MudMainContent>
+        <MudBreadcrumbs Items="_items">
+
+        </MudBreadcrumbs>
+        <MudContainer MaxWidth="MaxWidth.Large" Style="">
+            @Body
+        </MudContainer>
+    </MudMainContent>
+</MudLayout>
+
+@code {
+    bool _drawerOpen = true;
+
+    void DrawerToggle()
+    {
+        _drawerOpen = !_drawerOpen;
+    }
+    private List<BreadcrumbItem> _items = new List<BreadcrumbItem>
+    {
+        new BreadcrumbItem("Home", href: "#"),
+        new BreadcrumbItem("Link 1", href: "#"),
+        new BreadcrumbItem("Link 2", href: null, disabled: true)
+    };
+}
+
+@*<div class="page">
+    <div class="sidebar">
+    <NavMenu />
     </div>
 
     <main>
-        <div class="top-row px-4 auth">
-            <LoginDisplay />
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
-        </div>
+    <div class="top-row px-4 auth">
+    <LoginDisplay />
+    <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+    </div>
 
-        <article class="content px-4">
-            @Body
-        </article>
+    <article class="content px-4">
+    @Body
+    </article>
     </main>
-</div>
+    </div>*@
