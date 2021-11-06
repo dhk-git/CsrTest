@@ -1,2 +1,2 @@
 # CsrTest
-## .net 6
+## .net 6 Blazor Server
