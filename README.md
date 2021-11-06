@@ -1,2 +1,2 @@
 # CsrTest
-## .not 6
+## .net 6
