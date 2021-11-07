@@ -6,8 +6,11 @@ namespace Csr.Models
     {
         [Key]
         [Required]
-        public string? UserID { get; set; }
+        public string UserID { get; set; }
         [Required]
-        public string? UserName {  get; set; }
+        public string Password { get; set; }
+        [Required]
+        public string UserName {  get; set; }
+        
     }
 }

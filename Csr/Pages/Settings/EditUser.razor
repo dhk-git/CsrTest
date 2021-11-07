@@ -1,0 +1,9 @@
+﻿@page "/settings/edituser/{UserID}"
+
+<h3>EditUser</h3>
+<h1>@UserID</h1>
+
+@code {
+    [Parameter]
+    public string UserID { get; set; }
+}
