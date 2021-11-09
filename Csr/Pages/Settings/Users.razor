@@ -64,7 +64,7 @@ else
 
 
 @code {
-    public List<User>? UserList { get; set; }
+    public List<User> UserList { get; set; }
 
     
     private bool dense = true;
@@ -74,12 +74,12 @@ else
     private string searchString1 = "";
     private string searchString2 = "";
 
-    private User? selectedItem1 = null;
-    private User? selectedItem2 = null;
+    private User selectedItem1 = null;
+    private User selectedItem2 = null;
 
     private HashSet<User> selectedItems = new HashSet<User>();
 
-    private IEnumerable<User>? Users1 = new List<User>();
+    private IEnumerable<User> Users1 = new List<User>();
 
     protected override async Task OnInitializedAsync()
     {
