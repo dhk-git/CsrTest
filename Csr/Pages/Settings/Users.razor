@@ -24,11 +24,11 @@ else
             @foreach (var item in UserList)
             {
                 <tr class="text-center">
-                    <td>@item.UserID</td>
-                    <td>@item.UserName</td>
+                    <td>@item.USER_ID</td>
+                    <td>@item.USER_NM</td>
                     <td>
-                        <a href="/settings/edituser/@item.UserID">Edit</a>
-                        <a href="/settings/edituser/@item.UserID">Delete</a>
+                        <a href="/settings/edituser/@item.USER_ID">Edit</a>
+                        <a href="/settings/edituser/@item.USER_ID">Delete</a>
                     </td>
                 </tr>
             }
@@ -36,8 +36,8 @@ else
     </table>
 }
 <br />
-
-<MudTable Items="@Users1" Dense="@dense" Hover="@hover" Bordered="@bordered" RowEditPreview="BackupItem"  CanCancelEdit="@canCancelEdit" Striped="@striped" Filter="new Func<User,bool>(FilterFunc1)" @bind-SelectedItem="selectedItem1">
+ @*RowEditPreview="BackupItem" *@
+<MudTable Items="@Users1" Dense="@dense" Hover="@hover" Bordered="@bordered" CanCancelEdit="@canCancelEdit" Striped="@striped" Filter="new Func<MD_USER,bool>(FilterFunc1)" @bind-SelectedItem="selectedItem1">
     <ToolBarContent>
         <MudText Typo="Typo.h6">UserList</MudText>
         <MudSpacer />
@@ -49,11 +49,11 @@ else
         <MudTh Class="text-center"></MudTh>
     </HeaderContent>
     <RowTemplate>
-        <MudTd Class="text-center" DataLabel="UserID">@context.UserID</MudTd>
-        <MudTd Class="text-center" DataLabel="UserName">@context.UserName</MudTd>
+        <MudTd Class="text-center" DataLabel="UserID">@context.USER_ID</MudTd>
+        <MudTd Class="text-center" DataLabel="UserName">@context.USER_NM</MudTd>
         <MudTd Class="text-center">
-            <a href="/settings/edituser/@context.UserID">Edit</a>
-            <a href="/settings/edituser/@context.UserID">Delete</a>
+            <a href="/settings/edituser/@context.USER_ID">Edit</a>
+            <a href="/settings/edituser/@context.USER_ID">Delete</a>
         </MudTd>
     </RowTemplate>
     <PagerContent>
@@ -64,9 +64,9 @@ else
 
 
 @code {
-    public List<User> UserList { get; set; }
+    public List<MD_USER> UserList { get; set; }
 
-    
+
     private bool dense = true;
     private bool hover = true;
     private bool striped = true;
@@ -74,33 +74,34 @@ else
     private string searchString1 = "";
     private string searchString2 = "";
     private bool canCancelEdit = true;
+    
 
-    private User selectedItem1 = null;
-    private User selectedItem2 = null;
+    private MD_USER selectedItem1 = null;
+    private MD_USER selectedItem2 = null;
 
-    private HashSet<User> selectedItems = new HashSet<User>();
+    private HashSet<MD_USER> selectedItems = new HashSet<MD_USER>();
 
-    private IEnumerable<User> Users1 = new List<User>();
+    private IEnumerable<MD_USER> Users1 = new List<MD_USER>();
 
     protected override async Task OnInitializedAsync()
     {
-        UserList = await ctx.Users.ToListAsync();
-        Users1 = await ctx.Users.ToListAsync();
+        UserList = await ctx.MD_USER.ToListAsync();
+        Users1 = await ctx.MD_USER.ToListAsync();
 
     }
 
-    private bool FilterFunc1(User user) => FilterFunc(user, searchString1);
-    private bool FilterFunc2(User user) => FilterFunc(user, searchString2);
+    private bool FilterFunc1(MD_USER user) => FilterFunc(user, searchString1);
+    private bool FilterFunc2(MD_USER user) => FilterFunc(user, searchString2);
 
-    private bool FilterFunc(User user, string searchString)
+    private bool FilterFunc(MD_USER user, string searchString)
     {
         if (string.IsNullOrWhiteSpace(searchString))
             return true;
-        if (user.UserID.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+        if (user.USER_ID.Contains(searchString, StringComparison.OrdinalIgnoreCase))
             return true;
-        if (user.UserName.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+        if (user.USER_NM.Contains(searchString, StringComparison.OrdinalIgnoreCase))
             return true;
-        if ($"{user.UserID} {user.UserName}".Contains(searchString))
+        if ($"{user.USER_ID} {user.USER_NM}".Contains(searchString))
             return true;
         return false;
     }
