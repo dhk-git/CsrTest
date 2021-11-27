@@ -28,6 +28,14 @@ namespace Csr.Data
             modelBuilder.Entity<SYS_CODE>()
                 .HasKey(a => new { a.SYS_CD_GROUP, a.SYS_CD });
 
+            //MD_USER enum을 문자로 저장
+            modelBuilder.Entity<MD_USER>()
+                .Property(a => a.USER_ROLE)
+                .HasConversion(
+                    v => v.ToString(),
+                    v => (UserRole)Enum.Parse(typeof(UserRole), v));
+
+
             //사용자 시드데이터
             modelBuilder.Entity<MD_USER>().HasData(new MD_USER
             {
@@ -37,8 +45,8 @@ namespace Csr.Data
                 CREATE_DTTM = DateTime.Now,
                 CREATE_USER_ID = "A",
                 MODIFY_DTTM = DateTime.Now,
-                MODIFY_USER_ID = "A"
-
+                MODIFY_USER_ID = "A",
+                USER_ROLE = UserRole.Admin
             });
         }
     }

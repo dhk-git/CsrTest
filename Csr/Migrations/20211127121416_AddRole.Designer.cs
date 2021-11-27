@@ -4,6 +4,7 @@ using Csr.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Csr.Migrations
 {
     [DbContext(typeof(CsrDbContext))]
-    partial class CsrDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211127121416_AddRole")]
+    partial class AddRole
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -151,6 +153,11 @@ namespace Csr.Migrations
                         .HasColumnType("nvarchar(200)")
                         .HasComment("비고");
 
+                    b.Property<string>("ROLE")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasComment("권한");
+
                     b.Property<string>("USER_NM")
                         .IsRequired()
                         .HasColumnType("nvarchar(50)")
@@ -160,11 +167,6 @@ namespace Csr.Migrations
                         .IsRequired()
                         .HasColumnType("varbinary(100)")
                         .HasComment("사용자PW");
-
-                    b.Property<string>("USER_ROLE")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(50)")
-                        .HasComment("권한");
 
                     b.HasKey("USER_ID");
 
@@ -176,13 +178,13 @@ namespace Csr.Migrations
                         new
                         {
                             USER_ID = "admin",
-                            CREATE_DTTM = new DateTime(2021, 11, 27, 21, 19, 35, 378, DateTimeKind.Local).AddTicks(7203),
+                            CREATE_DTTM = new DateTime(2021, 11, 27, 21, 14, 16, 42, DateTimeKind.Local).AddTicks(6050),
                             CREATE_USER_ID = "A",
-                            MODIFY_DTTM = new DateTime(2021, 11, 27, 21, 19, 35, 378, DateTimeKind.Local).AddTicks(7212),
+                            MODIFY_DTTM = new DateTime(2021, 11, 27, 21, 14, 16, 42, DateTimeKind.Local).AddTicks(6061),
                             MODIFY_USER_ID = "A",
+                            ROLE = "Admin",
                             USER_NM = "admin",
-                            USER_PW = new byte[] { 97, 100, 109, 105, 110, 49 },
-                            USER_ROLE = "Admin"
+                            USER_PW = new byte[] { 97, 100, 109, 105, 110, 49 }
                         });
                 });
 

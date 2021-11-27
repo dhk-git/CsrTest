@@ -23,6 +23,17 @@ namespace Csr.Models
         [Comment("사용자명")]
         public string USER_NM {  get; set; }
         
+        [Required]
+        [Column(TypeName = "nvarchar(50)")]
+        [Comment("권한")]
+        public UserRole USER_ROLE { get; set; }
+    }
+
+    public enum UserRole
+    {
+        Admin,
+        Developer,
+        CustomerUser
     }
 
 }
