@@ -19,34 +19,26 @@ namespace Csr.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //base.OnModelCreating(modelBuilder);
+            //MD_CUSTOMER 기본값지정
             modelBuilder.Entity<MD_CUSTOMER>()
                 .Property(a => a.DEL_FG)
                 .HasDefaultValue("N");
-            
-            modelBuilder.Entity<MD_CUSTOMER>()
-                .Property(a => a.DEL_FG)
-                .HasDefaultValue("N");
+
+            //SYS_CODE 복합키 지정
             modelBuilder.Entity<SYS_CODE>()
                 .HasKey(a => new { a.SYS_CD_GROUP, a.SYS_CD });
 
+            //사용자 시드데이터
             modelBuilder.Entity<MD_USER>().HasData(new MD_USER
             {
-                USER_ID = "A",
-                USER_PW = "A",
-                USER_NM = "홍길동1",
+                USER_ID = "admin",
+                USER_PW = "admin1",
+                USER_NM = "admin",
                 CREATE_DTTM = DateTime.Now,
                 CREATE_USER_ID = "A",
                 MODIFY_DTTM = DateTime.Now,
                 MODIFY_USER_ID = "A"
 
-            }, new MD_USER {
-                USER_ID = "B",
-                USER_PW = "B",
-                USER_NM = "홍길동2",
-                CREATE_DTTM = DateTime.Now,
-                CREATE_USER_ID = "A",
-                MODIFY_DTTM = DateTime.Now,
-                MODIFY_USER_ID = "A"
             });
         }
     }

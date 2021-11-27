@@ -17,8 +17,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 
 //Sqlite 컨텍스트 추가
+//Sqlite
 //builder.Services.AddDbContext<CsrDbContext>(o => o.UseSqlite(builder.Configuration.GetConnectionString("SqliteConnection")));
-//MSSQL
+//MSSQL 사무실
 builder.Services.AddDbContext<CsrDbContext>(o => o.UseSqlServer(builder.Configuration.GetConnectionString("SqlServerConnection")));
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
