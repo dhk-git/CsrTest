@@ -3,6 +3,7 @@ using Csr.Data;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,12 @@ using MudBlazor.Services;
 
 
 var builder = WebApplication.CreateBuilder(args);
+//DataProtection 암호화 알고리즘
+//Csr.Common.Utils.SetDataProtection(builder.Services, @"D:\DataProtection\", "Csr", Csr.Common.CryptoType.CngCbc);
+//builder.Services.AddDataProtection()
+//    .PersistKeysToFileSystem(new DirectoryInfo(@"D:\DataProtection\"))
+//    .SetDefaultKeyLifetime(TimeSpan.FromDays(14))
+//    .SetApplicationName("Csr");
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -32,6 +39,18 @@ builder.Services.AddSingleton<WeatherForecastService>();
 //MudBlazor 서비스 추가
 builder.Services.AddMudServices();
 
+//신원보증과 승인권한-------구현중 20211202
+//쿠키등록
+builder.Services.AddAuthentication(defaultScheme: Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.AccessDeniedPath = "/users/forbidden";
+        options.LoginPath = "/users/login";
+    });
+//Author
+builder.Services.AddAuthorization();
+//신원보증과 승인권한-------------
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -52,8 +71,9 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthentication();
-app.UseAuthorization();
+//신원보증과 승인권한 --미들웨어등록
+app.UseAuthentication(); 
+app.UseAuthorization(); //이건 안해도 되나??
 
 
 app.MapControllers();
