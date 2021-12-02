@@ -11,7 +11,7 @@ using MudBlazor.Services;
 
 
 var builder = WebApplication.CreateBuilder(args);
-//DataProtection ¾ÏÈ£È­ ¾Ë°í¸®Áò
+//DataProtection ï¿½ï¿½È£È­ ï¿½Ë°ï¿½ï¿½ï¿½ï¿½ï¿½
 //Csr.Common.Utils.SetDataProtection(builder.Services, @"D:\DataProtection\", "Csr", Csr.Common.CryptoType.CngCbc);
 //builder.Services.AddDataProtection()
 //    .PersistKeysToFileSystem(new DirectoryInfo(@"D:\DataProtection\"))
@@ -20,13 +20,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
+builder.Services.AddDbContext<CsrContext>(options =>
+    options.UseSqlServer(connectionString));builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 
-//Sqlite ÄÁÅØ½ºÆ® Ãß°¡
+//Sqlite ï¿½ï¿½ï¿½Ø½ï¿½Æ® ï¿½ß°ï¿½
 //Sqlite
 //builder.Services.AddDbContext<CsrDbContext>(o => o.UseSqlite(builder.Configuration.GetConnectionString("SqliteConnection")));
-//MSSQL »ç¹«½Ç
+//MSSQL ï¿½ç¹«ï¿½ï¿½
 builder.Services.AddDbContext<CsrDbContext>(o => o.UseSqlServer(builder.Configuration.GetConnectionString("SqlServerConnection")));
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
@@ -37,11 +38,11 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
 builder.Services.AddSingleton<WeatherForecastService>();
 
-//MudBlazor ¼­ºñ½º Ãß°¡
+//MudBlazor ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
 builder.Services.AddMudServices();
 
-//½Å¿øº¸Áõ°ú ½ÂÀÎ±ÇÇÑ-------±¸ÇöÁß 20211202
-//ÄíÅ°µî·Ï
+//ï¿½Å¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î±ï¿½ï¿½ï¿½-------ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 20211202
+//ï¿½ï¿½Å°ï¿½ï¿½ï¿½
 builder.Services.AddAuthentication(defaultScheme: Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
@@ -50,7 +51,7 @@ builder.Services.AddAuthentication(defaultScheme: Microsoft.AspNetCore.Authentic
     });
 //Author
 builder.Services.AddAuthorization();
-//½Å¿øº¸Áõ°ú ½ÂÀÎ±ÇÇÑ-------------
+//ï¿½Å¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î±ï¿½ï¿½ï¿½-------------
 
 var app = builder.Build();
 
@@ -72,9 +73,9 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-//½Å¿øº¸Áõ°ú ½ÂÀÎ±ÇÇÑ --¹Ìµé¿þ¾îµî·Ï
+//ï¿½Å¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î±ï¿½ï¿½ï¿½ --ï¿½Ìµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 app.UseAuthentication(); 
-app.UseAuthorization(); //ÀÌ°Ç ¾ÈÇØµµ µÇ³ª??
+app.UseAuthorization(); //ï¿½Ì°ï¿½ ï¿½ï¿½ï¿½Øµï¿½ ï¿½Ç³ï¿½??
 
 
 app.MapControllers();
