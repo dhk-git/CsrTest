@@ -46,8 +46,8 @@ builder.Services.AddMudServices();
 builder.Services.AddAuthentication(defaultScheme: Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
-        options.AccessDeniedPath = "/users/forbidden";
-        options.LoginPath = "/users/login";
+        options.AccessDeniedPath = "/Account/CsrLogin/CsrLogin";
+        options.LoginPath = "/Account/CsrLogin/CsrLogin";
     });
 //Author
 builder.Services.AddAuthorization();

@@ -35,78 +35,78 @@ namespace Csr.Shared
             return (Color)Enum.Parse(typeof(Color), enumString);
         }
 
-        //protected override void OnInitialized()
-        //{
-        //    base.OnInitialized();
-            
-        //    /*
-        //    MenuModel menuModel = new MenuModel
-        //    {
-        //        MenuType = MenuType.Program,
-        //        SortNo = 1f,
-        //        MenuID = "M001",
-        //        MenuName = "Home",
-        //        Href = "/home",
-        //        IconPath = GetIconPath("Icons.Filled.Home"),
-        //        IconColor = GetColor("Color.Primary")
-        //    };
-        //    menuModels.Add(menuModel);
-        //    MenuModel menuModel1 = new MenuModel
-        //    {
-        //        MenuType = MenuType.Program,
-        //        SortNo = 2f,
-        //        MenuID = "M002",
-        //        MenuName = "접수목록",
-        //        Href = "/counter",
-        //        IconPath = GetIconPath("Icons.Filled.Ballot"),
-        //        IconColor = GetColor("Color.Info")
-        //    };
-        //    menuModels.Add(menuModel1);
-        //    List<MenuModel> subMenus = new List<MenuModel>();
-        //    subMenus.Add(new MenuModel
-        //    {
-        //        MenuType = MenuType.Program,
-        //        SortNo = 4f,
-        //        MenuID = "M004",
-        //        MenuName = "고객사관리",
-        //        Href = "/settings/customers",
-        //        IconPath = Icons.Filled.AccountCircle,
-        //        IconColor = GetColor("Color.Info")
-        //    });
-        //    subMenus.Add(new MenuModel
-        //    {
-        //        MenuType = MenuType.Program,
-        //        SortNo = 5f,
-        //        MenuID = "M005",
-        //        MenuName = "프로젝트관리",
-        //        Href = "/settings/projects",
-        //        IconPath = Icons.Filled.AccountBalanceWallet,
-        //        IconColor = GetColor("Color.Info")
-        //    });
-        //    subMenus.Add(new MenuModel
-        //    {
-        //        MenuType = MenuType.Program,
-        //        SortNo = 6f,
-        //        MenuID = "M006",
-        //        MenuName = "사용자관리",
-        //        Href = "/settings/users",
-        //        IconPath = Icons.Filled.People,
-        //        IconColor = GetColor("Color.Success")  
-        //    });
-        //    MenuModel menuModel2 = new MenuModel
-        //    {
-        //        MenuType = MenuType.Group,
-        //        SortNo = 3f,
-        //        MenuID = "M003",
-        //        MenuName = "시스템관리",
-        //        Href = "",
-        //        IconPath = Icons.Filled.Settings,
-        //        IconColor = GetColor("Color.Info"),
-        //        SubMenus = subMenus
-        //    };
-        //    menuModels.Add(menuModel2);
-        //    */
-        //}
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+
+            MenuModel menuModel = new MenuModel
+            {
+                MenuType = MenuType.Program,
+                SortNo = 1f,
+                MenuID = "M001",
+                MenuName = "Home",
+                Href = "/home",
+                IconPath = GetIconPath("Icons.Filled.Home"),
+                IconColor = GetColor("Color.Primary")
+            };
+            menuModels.Add(menuModel);
+            MenuModel menuModel1 = new MenuModel
+            {
+                MenuType = MenuType.Program,
+                SortNo = 2f,
+                MenuID = "M002",
+                MenuName = "접수목록",
+                Href = "/counter",
+                IconPath = GetIconPath("Icons.Filled.Ballot"),
+                IconColor = GetColor("Color.Info")
+            };
+            menuModels.Add(menuModel1);
+            List<MenuModel> subMenus = new List<MenuModel>();
+            subMenus.Add(new MenuModel
+            {
+                MenuType = MenuType.Program,
+                SortNo = 4f,
+                MenuID = "M004",
+                MenuName = "고객사관리",
+                Href = "/settings/customers",
+                IconPath = Icons.Filled.AccountCircle,
+                IconColor = GetColor("Color.Info")
+            });
+            subMenus.Add(new MenuModel
+            {
+                MenuType = MenuType.Program,
+                SortNo = 5f,
+                MenuID = "M005",
+                MenuName = "프로젝트관리",
+                Href = "/settings/projects",
+                IconPath = Icons.Filled.AccountBalanceWallet,
+                IconColor = GetColor("Color.Info")
+            });
+            subMenus.Add(new MenuModel
+            {
+                MenuType = MenuType.Program,
+                SortNo = 6f,
+                MenuID = "M006",
+                MenuName = "사용자관리",
+                Href = "/settings/users",
+                IconPath = Icons.Filled.People,
+                IconColor = GetColor("Color.Success")
+            });
+            MenuModel menuModel2 = new MenuModel
+            {
+                MenuType = MenuType.Group,
+                SortNo = 3f,
+                MenuID = "M003",
+                MenuName = "시스템관리",
+                Href = "",
+                IconPath = Icons.Filled.Settings,
+                IconColor = GetColor("Color.Info"),
+                SubMenus = subMenus
+            };
+            menuModels.Add(menuModel2);
+
+        }
 
     }
 }
