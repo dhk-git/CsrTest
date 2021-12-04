@@ -1,9 +1,28 @@
 ﻿@attribute [AllowAnonymous]
-@inject NavigationManager _navigationManager
+@inject NavigationManager NavigationManager
 
 @code {
-    protected override void OnInitialized()
+    //protected override void OnInitialized()
+    //{
+    //    _navigationManager.NavigateTo("/Account/CsrLogin/Login");
+    //    //try
+    //    //{
+    //    //    _navigationManager.NavigateTo("/Account/CsrLogin/Login");  //디버깅시 오류남 
+    //    //}
+    //    //catch (Exception)
+    //    //{
+
+    //    //}
+    //}
+    //protected override void OnAfterRender(bool firstRender)
+    //{
+    //    NavigationManager.NavigateTo("/Account/CsrLogin/Login");//디버깅시 오류남 
+    //}
+    protected override async Task OnInitializedAsync()
     {
-        _navigationManager.NavigateTo("/Account/CsrLogin/Login");
+        //var returnUrl = "~/" + NavigationManager.ToBaseRelativePath(NavigationManager.Uri);
+        //NavigationManager.NavigateTo($"Account/CsrLogin/Login?returnUrl={returnUrl}", forceLoad:false);
+        await Task.Delay(1); //임시로...
+        NavigationManager.NavigateTo("/Account/CsrLogin/Login");
     }
 }

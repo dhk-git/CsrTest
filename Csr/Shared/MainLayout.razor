@@ -6,27 +6,35 @@
 <MudThemeProvider />
 <MudDialogProvider />
 <MudSnackbarProvider />
+<AuthorizeView>
+    <Authorized>
+        <MudLayout>
+        <MudAppBar>
+            <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
+            Customer Service Report
+            <MudSpacer />
+            <LoginDisplay />
+        </MudAppBar>
 
-<MudLayout>
-    <MudAppBar>
-        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
-        Customer Service Report
-          <MudSpacer />
-          <LoginDisplay />
-    </MudAppBar>
-    
-    <MudDrawer @bind-Open="@_drawerOpen">
-        <NavMenu />
-    </MudDrawer>
-    <MudMainContent>
-        <MudBreadcrumbs Items="_items">
+        <MudDrawer @bind-Open="@_drawerOpen">
+            <NavMenu />
+        </MudDrawer>
+        <MudMainContent>
+            <MudBreadcrumbs Items="_items">
 
-        </MudBreadcrumbs>
-        <MudContainer MaxWidth="MaxWidth.ExtraLarge" Style="height:85vh;background:white;overflow-x: auto;box-shadow: 5px 9px 12px lightgrey;">
-            @Body
-        </MudContainer>
-    </MudMainContent>
-</MudLayout>
+            </MudBreadcrumbs>
+            <MudContainer MaxWidth="MaxWidth.ExtraLarge" Style="height:85vh;background:white;overflow-x: auto;box-shadow: 5px 9px 12px lightgrey;">
+                @Body
+            </MudContainer>
+        </MudMainContent>
+    </MudLayout>
+    </Authorized>
+    <NotAuthorized>
+        <Csr.Pages.LoginRedirect></Csr.Pages.LoginRedirect>
+    </NotAuthorized>
+</AuthorizeView>
+
+
 
 @code {
     bool _drawerOpen = true;

@@ -1,11 +1,11 @@
 ﻿<AuthorizeView>
     <Authorized>
-        <a href="#" style="color:white">Hello, @context.User.Identity?.Name!</a>
+        <a href="#" style="color:white">Hello, @context.User.Claims.FirstOrDefault(a => a.Type == "USER_NM")?.Value<text>(</text>@context.User.Identity?.Name<text>)</text></a>
+        
         <form method="post" action="Account/CsrLogin/LogOut">
             @*<button type="submit" style="color:white" class="nav-link btn btn-link">Log out</button>*@
             <button type="submit" style="color:white" class="nav-link btn btn-link">
                 <MudIconButton Style="padding:3px" Icon="@Icons.Filled.Logout" Color="Color.Inherit" />Logout</button>
-            
         </form>
     </Authorized>
     <NotAuthorized>

@@ -19,10 +19,10 @@ var builder = WebApplication.CreateBuilder(args);
 //    .SetApplicationName("Csr");
 
 // Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<CsrContext>(options =>
-    options.UseSqlServer(connectionString));builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
+//var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+//builder.Services.AddDbContext<CsrContext>(options =>
+//    options.UseSqlServer(connectionString));builder.Services.AddDbContext<ApplicationDbContext>(options =>
+//    options.UseSqlServer(connectionString));
 
 //Sqlite
 //Sqlite
@@ -31,12 +31,15 @@ builder.Services.AddDbContext<CsrContext>(options =>
 builder.Services.AddDbContext<CsrDbContext>(o => o.UseSqlServer(builder.Configuration.GetConnectionString("SqlServerConnection")));
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+
+//builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+//    .AddEntityFrameworkStores<ApplicationDbContext>();
+
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
-builder.Services.AddSingleton<WeatherForecastService>();
+
+//builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
+//builder.Services.AddSingleton<WeatherForecastService>();
 
 //MudBlazor 추가
 builder.Services.AddMudServices();
@@ -45,8 +48,8 @@ builder.Services.AddMudServices();
 builder.Services.AddAuthentication(defaultScheme: Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
-        options.AccessDeniedPath = "/Account/CsrLogin/CsrLogin"; //이걸로 사용되지 않음 App.razor 파일에 NotAuthorized <Csr.Pages.LoginRedirect></Csr.Pages.LoginRedirect>
-        options.LoginPath = "/Account/CsrLogin/CsrLogin";
+        options.AccessDeniedPath = "/Account/CsrLogin/Login"; //이걸로 사용되지 않음 App.razor 파일에 NotAuthorized <Csr.Pages.LoginRedirect></Csr.Pages.LoginRedirect>
+        options.LoginPath = "/Account/CsrLogin/Login";
     }); 
 //Author
 builder.Services.AddAuthorization();
