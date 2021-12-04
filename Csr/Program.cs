@@ -45,9 +45,9 @@ builder.Services.AddMudServices();
 builder.Services.AddAuthentication(defaultScheme: Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
-        options.AccessDeniedPath = "/Account/CsrLogin/CsrLogin";
+        options.AccessDeniedPath = "/Account/CsrLogin/CsrLogin"; //이걸로 사용되지 않음 App.razor 파일에 NotAuthorized <Csr.Pages.LoginRedirect></Csr.Pages.LoginRedirect>
         options.LoginPath = "/Account/CsrLogin/CsrLogin";
-    });
+    }); 
 //Author
 builder.Services.AddAuthorization();
 

@@ -42,12 +42,13 @@ namespace Csr.Areas.Account.Pages.CsrLogin
             public bool RememberMe { get; set; }
         }
 
-        public void OnGet(string returnUrl = null)
+        public async Task OnGet(string returnUrl = null)
         {
             if (!string.IsNullOrEmpty(ErrorMessage))
             {
                 ModelState.AddModelError(string.Empty, ErrorMessage);
             }
+            await HttpContext.SignOutAsync(Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme);
             returnUrl ??= Url.Content("~/");
             ReturnUrl = returnUrl;
         }
