@@ -1,16 +1,38 @@
-﻿<AuthorizeView>
+﻿@inject IDialogService DialogService
+@inject NavigationManager NavigationManager
+<AuthorizeView>
     <Authorized>
-        <a href="#" style="color:white">Hello, @context.User.Claims.FirstOrDefault(a => a.Type == "USER_NM")?.Value<text>(</text>@context.User.Identity?.Name<text>)</text></a>
-        
-        <form method="post" action="Account/CsrLogin/LogOut">
-            @*<button type="submit" style="color:white" class="nav-link btn btn-link">Log out</button>*@
-            <button type="submit" style="color:white" class="nav-link btn btn-link">
-                <MudIconButton Style="padding:3px" Icon="@Icons.Filled.Logout" Color="Color.Inherit" />Logout</button>
-        </form>
+        @*<a href="#" style="color:white">Hello, @context.User.Claims.FirstOrDefault(a => a.Type == "USER_NM")?.Value<text>(</text>@context.User.Identity?.Name<text>)</text></a>*@
+        <span style="color:white;margin-right:10px">Hello, @context.User.Claims.FirstOrDefault(a => a.Type == "USER_NM")?.Value<text>(</text>@context.User.Identity?.Name<text>) </text></span>
+        @*<form method="post" action="Account/CsrLogin/LogOut">
+            <button type="submit" style="color:white" class="nav-link btn btn-link" @onclick="OpenDialog">
+                <MudIconButton Style="padding:3px" Icon="@Icons.Filled.Logout" Color="Color.Inherit" />Logout
+            </button>
+        </form>*@
+        <MudButton Style="" StartIcon="@Icons.Filled.Logout" Color="Color.Inherit" @onclick="OpenDialog">Logout</MudButton>
     </Authorized>
     <NotAuthorized>
         @*<a href="Identity/Account/Register">Register</a>*@
         @*<a href="Identity/Account/Login" style="color:white"><MudIconButton Icon="@Icons.Filled.Login" Color="Color.Inherit" />Log in</a>*@
-        <a href="Account/CsrLogin/Login" style="color:white"><MudIconButton  Icon="@Icons.Filled.Login" Color="Color.Inherit" />Log in</a>
+        <a href="Account/CsrLogin/Login" style="color:white"><MudIconButton Icon="@Icons.Filled.Login" Color="Color.Inherit" />Log in</a>
     </NotAuthorized>
 </AuthorizeView>
+
+
+
+@code {
+
+    private async void OpenDialog()
+    {
+        var dialog  = DialogService.Show<Csr.Pages.LogoutDialog>("Logout");
+        var rst = await dialog.Result;
+        if (!rst.Cancelled)
+        {
+            //NavigationManager.NavigateTo("settings/projects");
+            NavigationManager.NavigateTo("account/csrlogin/logout", true);
+             //StateHasChanged();
+        }
+        
+    }
+
+}
