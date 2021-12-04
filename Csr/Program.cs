@@ -11,7 +11,7 @@ using MudBlazor.Services;
 
 
 var builder = WebApplication.CreateBuilder(args);
-//DataProtection ��ȣȭ �˰�����
+//DataProtection
 //Csr.Common.Utils.SetDataProtection(builder.Services, @"D:\DataProtection\", "Csr", Csr.Common.CryptoType.CngCbc);
 //builder.Services.AddDataProtection()
 //    .PersistKeysToFileSystem(new DirectoryInfo(@"D:\DataProtection\"))
@@ -24,10 +24,10 @@ builder.Services.AddDbContext<CsrContext>(options =>
     options.UseSqlServer(connectionString));builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 
-//Sqlite ���ؽ�Ʈ �߰�
+//Sqlite
 //Sqlite
 //builder.Services.AddDbContext<CsrDbContext>(o => o.UseSqlite(builder.Configuration.GetConnectionString("SqliteConnection")));
-//MSSQL �繫��
+//MSSQL
 builder.Services.AddDbContext<CsrDbContext>(o => o.UseSqlServer(builder.Configuration.GetConnectionString("SqlServerConnection")));
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
@@ -38,11 +38,10 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
 builder.Services.AddSingleton<WeatherForecastService>();
 
-//MudBlazor ���� �߰�
+//MudBlazor 추가
 builder.Services.AddMudServices();
 
-//�ſ������� ���α���-------������ 20211202
-//��Ű���
+//쿠키인증으로 추가 20211202
 builder.Services.AddAuthentication(defaultScheme: Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
@@ -51,7 +50,7 @@ builder.Services.AddAuthentication(defaultScheme: Microsoft.AspNetCore.Authentic
     });
 //Author
 builder.Services.AddAuthorization();
-//�ſ������� ���α���-------------
+
 
 var app = builder.Build();
 
@@ -73,9 +72,12 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-//�ſ������� ���α��� --�̵������
+//쿠키정책 - todo  SameSite 설정
+app.UseCookiePolicy();  //SameSite...
+
 app.UseAuthentication(); 
-app.UseAuthorization(); //�̰� ���ص� �ǳ�??
+//Authorize
+app.UseAuthorization(); 
 
 
 app.MapControllers();
