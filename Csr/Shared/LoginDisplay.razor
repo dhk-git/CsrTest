@@ -1,13 +1,16 @@
 ﻿<AuthorizeView>
     <Authorized>
-        <a href="Identity/Account/Manage" style="color:white">Hello, @context.User.Identity?.Name!</a>
+        <a href="#" style="color:white">Hello, @context.User.Identity?.Name!</a>
         <form method="post" action="Account/CsrLogin/LogOut">
-            <button type="submit" style="color:white" class="nav-link btn btn-link">Log out</button>
+            @*<button type="submit" style="color:white" class="nav-link btn btn-link">Log out</button>*@
+            <button type="submit" style="color:white" class="nav-link btn btn-link">
+                <MudIconButton Style="padding:3px" Icon="@Icons.Filled.Logout" Color="Color.Inherit" />Logout</button>
+            
         </form>
     </Authorized>
     <NotAuthorized>
         @*<a href="Identity/Account/Register">Register</a>*@
         @*<a href="Identity/Account/Login" style="color:white"><MudIconButton Icon="@Icons.Filled.Login" Color="Color.Inherit" />Log in</a>*@
-        <a href="Account/CsrLogin/Login" style="color:white"><MudIconButton Icon="@Icons.Filled.Login" Color="Color.Inherit" />Log in</a>
+        <a href="Account/CsrLogin/Login" style="color:white"><MudIconButton  Icon="@Icons.Filled.Login" Color="Color.Inherit" />Log in</a>
     </NotAuthorized>
 </AuthorizeView>
