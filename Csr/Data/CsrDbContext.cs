@@ -15,6 +15,8 @@ namespace Csr.Data
         public DbSet<MD_USER> MD_USER { get; set; }
         public DbSet<MD_CUSTOMER> MD_CUSTOMER { get; set; }
         public DbSet<CT_PROJECT> CT_PROJECT { get; set; }
+        public DbSet<CT_REQUEST> CT_REQUEST { get; set; }
+        public DbSet<CT_RESPONSE> CT_RESPONSE { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -48,6 +50,54 @@ namespace Csr.Data
                 MODIFY_USER_ID = "A",
                 USER_ROLE = UserRole.Admin
             });
+
+            //시스템 코드 그룹
+            modelBuilder.Entity<SYS_CODE_GROUP>().HasData(new SYS_CODE_GROUP {
+                SYS_CD_GROUP = "REQUEST_TYPE",
+                SYS_CD_GROUP_NM = "요청유형",
+                CREATE_DTTM = DateTime.Now,
+                CREATE_USER_ID = "admin",
+                MODIFY_DTTM = DateTime.Now,
+                MODIFY_USER_ID = "admin",
+                SORT_NO = 1
+            });
+
+            //시스템 코드 - 요청유형
+            modelBuilder.Entity<SYS_CODE>().HasData(new SYS_CODE
+            {
+                SYS_CD_GROUP = "REQUEST_TYPE",
+                SYS_CD = "Question",
+                SYS_CD_NM = "단순문의",
+                CREATE_DTTM = DateTime.Now,
+                CREATE_USER_ID = "admin",
+                MODIFY_DTTM = DateTime.Now,
+                MODIFY_USER_ID = "admin",
+                SORT_NO = 1
+            });
+            modelBuilder.Entity<SYS_CODE>().HasData(new SYS_CODE
+            {
+                SYS_CD_GROUP = "REQUEST_TYPE",
+                SYS_CD = "ProgramError",
+                SYS_CD_NM = "프로그램오류",
+                CREATE_DTTM = DateTime.Now,
+                CREATE_USER_ID = "admin",
+                MODIFY_DTTM = DateTime.Now,
+                MODIFY_USER_ID = "admin",
+                SORT_NO = 1
+            });
+            modelBuilder.Entity<SYS_CODE>().HasData(new SYS_CODE
+            {
+                SYS_CD_GROUP = "REQUEST_TYPE",
+                SYS_CD = "ModifyData",
+                SYS_CD_NM = "데이터수정",
+                CREATE_DTTM = DateTime.Now,
+                CREATE_USER_ID = "admin",
+                MODIFY_DTTM = DateTime.Now,
+                MODIFY_USER_ID = "admin",
+                SORT_NO = 1
+            });
+
+
         }
     }
 }

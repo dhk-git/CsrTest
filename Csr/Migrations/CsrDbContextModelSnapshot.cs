@@ -68,6 +68,151 @@ namespace Csr.Migrations
                     b.HasComment("CT_프로젝트");
                 });
 
+            modelBuilder.Entity("Csr.Models.CT_REQUEST", b =>
+                {
+                    b.Property<int>("REQUEST_ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasComment("요청ID");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("REQUEST_ID"), 1L, 1);
+
+                    b.Property<DateTime>("CREATE_DT")
+                        .HasColumnType("date")
+                        .HasComment("요청일자");
+
+                    b.Property<DateTime>("CREATE_DTTM")
+                        .HasColumnType("datetime")
+                        .HasComment("생성시간");
+
+                    b.Property<string>("CREATE_USER_ID")
+                        .IsRequired()
+                        .HasColumnType("varchar(20)")
+                        .HasComment("생성자");
+
+                    b.Property<string>("MD_USERUSER_ID")
+                        .HasColumnType("varchar(20)");
+
+                    b.Property<DateTime>("MODIFY_DTTM")
+                        .HasColumnType("datetime")
+                        .HasComment("생성시간");
+
+                    b.Property<string>("MODIFY_USER_ID")
+                        .IsRequired()
+                        .HasColumnType("varchar(20)")
+                        .HasComment("수정자");
+
+                    b.Property<string>("PROJECT_ID")
+                        .HasColumnType("varchar(20)");
+
+                    b.Property<string>("REMARK")
+                        .HasColumnType("nvarchar(200)")
+                        .HasComment("비고");
+
+                    b.Property<string>("REQUEST_DETAIL")
+                        .HasColumnType("nvarchar(max)")
+                        .HasComment("내용");
+
+                    b.Property<string>("REQUEST_LEVEL")
+                        .HasColumnType("varchar(50)")
+                        .HasComment("긴급도");
+
+                    b.Property<string>("REQUEST_STATUS")
+                        .HasColumnType("varchar(50)")
+                        .HasComment("요청상태");
+
+                    b.Property<string>("REQUEST_TITLE")
+                        .HasColumnType("nvarchar(100)")
+                        .HasComment("제목");
+
+                    b.Property<string>("REQUEST_TYPE")
+                        .HasColumnType("varchar(50)")
+                        .HasComment("요청유형");
+
+                    b.HasKey("REQUEST_ID");
+
+                    b.HasIndex("MD_USERUSER_ID");
+
+                    b.HasIndex("PROJECT_ID");
+
+                    b.ToTable("CT_REQUEST");
+
+                    b.HasComment("CT_요청");
+                });
+
+            modelBuilder.Entity("Csr.Models.CT_RESPONSE", b =>
+                {
+                    b.Property<int>("RESPONSE_ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasComment("답변ID");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RESPONSE_ID"), 1L, 1);
+
+                    b.Property<DateTime>("CREATE_DTTM")
+                        .HasColumnType("datetime")
+                        .HasComment("생성시간");
+
+                    b.Property<string>("CREATE_USER_ID")
+                        .IsRequired()
+                        .HasColumnType("varchar(20)")
+                        .HasComment("생성자");
+
+                    b.Property<int?>("CT_REQUESTREQUEST_ID")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("FROM_DTTM")
+                        .HasColumnType("datetime")
+                        .HasComment("시작일시");
+
+                    b.Property<int>("MAN_HOUR")
+                        .HasPrecision(5, 2)
+                        .HasColumnType("int")
+                        .HasComment("실투입공수");
+
+                    b.Property<DateTime>("MODIFY_DTTM")
+                        .HasColumnType("datetime")
+                        .HasComment("생성시간");
+
+                    b.Property<string>("MODIFY_USER_ID")
+                        .IsRequired()
+                        .HasColumnType("varchar(20)")
+                        .HasComment("수정자");
+
+                    b.Property<string>("REMARK")
+                        .HasColumnType("nvarchar(200)")
+                        .HasComment("비고");
+
+                    b.Property<string>("RESPONSE_DETAIL")
+                        .HasColumnType("nvarchar(max)")
+                        .HasComment("내용");
+
+                    b.Property<string>("RESPONSE_STATUS")
+                        .HasColumnType("varchar(50)")
+                        .HasComment("답변상태");
+
+                    b.Property<string>("RESPONSE_TITLE")
+                        .HasColumnType("nvarchar(100)")
+                        .HasComment("제목");
+
+                    b.Property<DateTime>("TO_DTTM")
+                        .HasColumnType("datetime")
+                        .HasComment("종료일시");
+
+                    b.Property<string>("USER_ID1")
+                        .HasColumnType("varchar(20)");
+
+                    b.HasKey("RESPONSE_ID");
+
+                    b.HasIndex("CT_REQUESTREQUEST_ID");
+
+                    b.HasIndex("USER_ID1");
+
+                    b.ToTable("CT_RESPONSE");
+
+                    b.HasComment("CT_답변");
+                });
+
             modelBuilder.Entity("Csr.Models.MD_CUSTOMER", b =>
                 {
                     b.Property<string>("CUSTOMER_ID")
@@ -176,9 +321,9 @@ namespace Csr.Migrations
                         new
                         {
                             USER_ID = "admin",
-                            CREATE_DTTM = new DateTime(2021, 11, 27, 21, 19, 35, 378, DateTimeKind.Local).AddTicks(7203),
+                            CREATE_DTTM = new DateTime(2021, 12, 5, 22, 20, 22, 197, DateTimeKind.Local).AddTicks(7768),
                             CREATE_USER_ID = "A",
-                            MODIFY_DTTM = new DateTime(2021, 11, 27, 21, 19, 35, 378, DateTimeKind.Local).AddTicks(7212),
+                            MODIFY_DTTM = new DateTime(2021, 12, 5, 22, 20, 22, 197, DateTimeKind.Local).AddTicks(7777),
                             MODIFY_USER_ID = "A",
                             USER_NM = "admin",
                             USER_PW = new byte[] { 97, 100, 109, 105, 110, 49 },
@@ -245,6 +390,41 @@ namespace Csr.Migrations
                     b.ToTable("SYS_CODE");
 
                     b.HasComment("SYS_시스템코드");
+
+                    b.HasData(
+                        new
+                        {
+                            SYS_CD_GROUP = "REQUEST_TYPE",
+                            SYS_CD = "Question",
+                            CREATE_DTTM = new DateTime(2021, 12, 5, 22, 20, 22, 197, DateTimeKind.Local).AddTicks(7880),
+                            CREATE_USER_ID = "admin",
+                            MODIFY_DTTM = new DateTime(2021, 12, 5, 22, 20, 22, 197, DateTimeKind.Local).AddTicks(7880),
+                            MODIFY_USER_ID = "admin",
+                            SORT_NO = 1m,
+                            SYS_CD_NM = "단순문의"
+                        },
+                        new
+                        {
+                            SYS_CD_GROUP = "REQUEST_TYPE",
+                            SYS_CD = "ProgramError",
+                            CREATE_DTTM = new DateTime(2021, 12, 5, 22, 20, 22, 197, DateTimeKind.Local).AddTicks(7889),
+                            CREATE_USER_ID = "admin",
+                            MODIFY_DTTM = new DateTime(2021, 12, 5, 22, 20, 22, 197, DateTimeKind.Local).AddTicks(7889),
+                            MODIFY_USER_ID = "admin",
+                            SORT_NO = 1m,
+                            SYS_CD_NM = "프로그램오류"
+                        },
+                        new
+                        {
+                            SYS_CD_GROUP = "REQUEST_TYPE",
+                            SYS_CD = "ModifyData",
+                            CREATE_DTTM = new DateTime(2021, 12, 5, 22, 20, 22, 197, DateTimeKind.Local).AddTicks(7896),
+                            CREATE_USER_ID = "admin",
+                            MODIFY_DTTM = new DateTime(2021, 12, 5, 22, 20, 22, 197, DateTimeKind.Local).AddTicks(7896),
+                            MODIFY_USER_ID = "admin",
+                            SORT_NO = 1m,
+                            SYS_CD_NM = "데이터수정"
+                        });
                 });
 
             modelBuilder.Entity("Csr.Models.SYS_CODE_GROUP", b =>
@@ -290,6 +470,18 @@ namespace Csr.Migrations
                     b.ToTable("SYS_CODE_GROUP");
 
                     b.HasComment("SYS_시스템코드_그룹");
+
+                    b.HasData(
+                        new
+                        {
+                            SYS_CD_GROUP = "REQUEST_TYPE",
+                            CREATE_DTTM = new DateTime(2021, 12, 5, 22, 20, 22, 197, DateTimeKind.Local).AddTicks(7867),
+                            CREATE_USER_ID = "admin",
+                            MODIFY_DTTM = new DateTime(2021, 12, 5, 22, 20, 22, 197, DateTimeKind.Local).AddTicks(7868),
+                            MODIFY_USER_ID = "admin",
+                            SORT_NO = 1m,
+                            SYS_CD_GROUP_NM = "요청유형"
+                        });
                 });
 
             modelBuilder.Entity("Csr.Models.CT_PROJECT", b =>
@@ -303,6 +495,34 @@ namespace Csr.Migrations
                     b.Navigation("MD_CUSTOMER");
                 });
 
+            modelBuilder.Entity("Csr.Models.CT_REQUEST", b =>
+                {
+                    b.HasOne("Csr.Models.MD_USER", "MD_USER")
+                        .WithMany()
+                        .HasForeignKey("MD_USERUSER_ID");
+
+                    b.HasOne("Csr.Models.CT_PROJECT", "CT_PROJECT")
+                        .WithMany()
+                        .HasForeignKey("PROJECT_ID");
+
+                    b.Navigation("CT_PROJECT");
+
+                    b.Navigation("MD_USER");
+                });
+
+            modelBuilder.Entity("Csr.Models.CT_RESPONSE", b =>
+                {
+                    b.HasOne("Csr.Models.CT_REQUEST", null)
+                        .WithMany("CT_RESPONSE")
+                        .HasForeignKey("CT_REQUESTREQUEST_ID");
+
+                    b.HasOne("Csr.Models.MD_USER", "USER_ID")
+                        .WithMany()
+                        .HasForeignKey("USER_ID1");
+
+                    b.Navigation("USER_ID");
+                });
+
             modelBuilder.Entity("Csr.Models.SYS_CODE", b =>
                 {
                     b.HasOne("Csr.Models.SYS_CODE_GROUP", null)
@@ -310,6 +530,11 @@ namespace Csr.Migrations
                         .HasForeignKey("SYS_CD_GROUP")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Csr.Models.CT_REQUEST", b =>
+                {
+                    b.Navigation("CT_RESPONSE");
                 });
 
             modelBuilder.Entity("Csr.Models.SYS_CODE_GROUP", b =>
