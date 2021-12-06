@@ -1,5 +1,6 @@
 ﻿@page "/"
 @page "/home"
+@inject IJSRuntime JS
 
 
 @*<PageTitle>Home</PageTitle>*@
@@ -150,6 +151,8 @@
     </div>
 </div>
 
+<button @onclick="TestJs">테스트js </button>
+
 @code {
     private int Index = -1; //default value cannot be 0 -> first selectedindex is 0.
     int dataSize = 4;
@@ -185,4 +188,26 @@
             RandomizeData();
         }
     }
+
+    public void TestJs()
+    {
+        _jsModule.InvokeVoidAsync("showAlert", "JS function called from .NET");
+        
+    }
+
+    IJSObjectReference _jsModule;
+    IJSObjectReference _jsSummernote;
+    protected override async void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _jsModule = await JS.InvokeAsync<IJSObjectReference>("import", "/Pages/Home.razor.js");
+        }
+        base.OnAfterRender(firstRender);
+    }
+    //protected override async Task OnAfterRenderAsync(bool firstRender)
+    //{
+    //    if (firstRender) await JS.InvokeVoidAsync("windowMinWidthMatchesQuery", DotNetObjectReference.Create(this));
+    //    //return base.OnAfterRenderAsync(firstRender);
+    //}
 }
