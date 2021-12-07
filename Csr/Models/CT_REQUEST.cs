@@ -32,7 +32,7 @@ namespace Csr.Models
 
         [Comment("사용자ID")]
         [Column(TypeName = "varchar(20)")]
-        public MD_USER  MD_USER { get; set; }
+        public string USER_ID { get; set; }
         
         [Column(TypeName = "nvarchar(100)")]
         [Comment("제목")]
@@ -46,9 +46,10 @@ namespace Csr.Models
         [Comment("요청상태")]
         public string REQUEST_STATUS { get; set; }
 
-        [Comment("답변ID")]
-        [Column(TypeName = "int")]
-        public ICollection<CT_RESPONSE> CT_RESPONSE { get; set; }
+        //[Comment("답변ID")]
+        //[Column(TypeName = "int")]
+        //[ForeignKey("RESPONSE_ID")]
+        //public virtual ICollection<CT_RESPONSE> CT_RESPONSE { get; set; }
     }
         
 }

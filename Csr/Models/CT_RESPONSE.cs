@@ -12,10 +12,14 @@ namespace Csr.Models
         [Column(TypeName = "int")]
         [Comment("답변ID")]
         public int RESPONSE_ID { get; set; }
+        
+        [Column(TypeName = "int")]
+        [Comment("요청ID")]
+        public int REQUEST_ID { get; set; }
 
         [Comment("사용자ID")]
         [Column(TypeName = "varchar(20)")]
-        public MD_USER USER_ID { get; set; }
+        public string USER_ID { get; set; }
 
         [Column(TypeName = "nvarchar(100)")]
         [Comment("제목")]

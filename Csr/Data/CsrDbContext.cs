@@ -38,6 +38,13 @@ namespace Csr.Data
                     v => (UserRole)Enum.Parse(typeof(UserRole), v));
 
 
+            //포린키 지정
+            modelBuilder.Entity<CT_RESPONSE>()
+                .HasOne<CT_REQUEST>()
+                .WithMany()
+                .HasForeignKey(p => p.REQUEST_ID);
+
+
             //사용자 시드데이터
             modelBuilder.Entity<MD_USER>().HasData(new MD_USER
             {
