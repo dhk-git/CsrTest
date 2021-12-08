@@ -1,6 +1,6 @@
 ﻿@page "/"
 @page "/home"
-@inject IJSRuntime JS
+@inject IJSRuntime Js
 
 
 @*<PageTitle>Home</PageTitle>*@
@@ -153,7 +153,31 @@
 
 <button @onclick="TestJs">테스트js </button>
 
+<div id="summernote">Hello Summernote</div>
+
+<div style="width:100%;min-width:50px;">
+    <div id="@NoteId">@Content</div>
+    <div align="right">
+        @if (_edit)
+        {
+            <button class="btn btn-primary" @onclick="Save">
+                <span class="oi oi-lock-locked"></span>
+            </button>
+        }
+        else
+        {
+            <button class="btn btn-primary" @onclick="Edit">
+                <span class="oi oi-lock-unlocked"></span>
+            </button>
+        }
+    </div>
+</div>
+
 @code {
+
+
+
+    //---------------
     private int Index = -1; //default value cannot be 0 -> first selectedindex is 0.
     int dataSize = 4;
     double[] data = { 77, 25, 20, 5 };
@@ -192,7 +216,7 @@
     public void TestJs()
     {
         _jsModule.InvokeVoidAsync("showAlert", "JS function called from .NET");
-        
+        _jsModule.InvokeVoidAsync("setSummernote", "");
     }
 
     IJSObjectReference _jsModule;
@@ -201,7 +225,9 @@
     {
         if (firstRender)
         {
-            _jsModule = await JS.InvokeAsync<IJSObjectReference>("import", "/Pages/Home.razor.js");
+            _jsModule = await Js.InvokeAsync<IJSObjectReference>("import", "/Pages/Home.razor.js");
+            
+            await _jsModule.InvokeVoidAsync("showAlert", "JS function called from .NET");
         }
         base.OnAfterRender(firstRender);
     }
