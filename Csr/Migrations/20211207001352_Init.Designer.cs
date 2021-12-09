@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Csr.Migrations
 {
     [DbContext(typeof(CsrDbContext))]
-    [Migration("20211205132022_Init")]
+    [Migration("20211207001352_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -39,9 +39,10 @@ namespace Csr.Migrations
                         .HasColumnType("varchar(20)")
                         .HasComment("생성자");
 
-                    b.Property<string>("MD_CUSTOMERCUSTOMER_ID")
+                    b.Property<string>("CUSTOMER_ID")
                         .IsRequired()
-                        .HasColumnType("varchar(20)");
+                        .HasColumnType("varchar(20)")
+                        .HasComment("고객사ID");
 
                     b.Property<DateTime>("MODIFY_DTTM")
                         .HasColumnType("datetime")
@@ -62,8 +63,6 @@ namespace Csr.Migrations
                         .HasComment("비고");
 
                     b.HasKey("PROJECT_ID");
-
-                    b.HasIndex("MD_CUSTOMERCUSTOMER_ID");
 
                     b.ToTable("CT_PROJECT");
 
@@ -91,9 +90,6 @@ namespace Csr.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(20)")
                         .HasComment("생성자");
-
-                    b.Property<string>("MD_USERUSER_ID")
-                        .HasColumnType("varchar(20)");
 
                     b.Property<DateTime>("MODIFY_DTTM")
                         .HasColumnType("datetime")
@@ -131,9 +127,11 @@ namespace Csr.Migrations
                         .HasColumnType("varchar(50)")
                         .HasComment("요청유형");
 
-                    b.HasKey("REQUEST_ID");
+                    b.Property<string>("USER_ID")
+                        .HasColumnType("varchar(20)")
+                        .HasComment("사용자ID");
 
-                    b.HasIndex("MD_USERUSER_ID");
+                    b.HasKey("REQUEST_ID");
 
                     b.HasIndex("PROJECT_ID");
 
@@ -160,9 +158,6 @@ namespace Csr.Migrations
                         .HasColumnType("varchar(20)")
                         .HasComment("생성자");
 
-                    b.Property<int?>("CT_REQUESTREQUEST_ID")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("FROM_DTTM")
                         .HasColumnType("datetime")
                         .HasComment("시작일시");
@@ -185,6 +180,10 @@ namespace Csr.Migrations
                         .HasColumnType("nvarchar(200)")
                         .HasComment("비고");
 
+                    b.Property<int>("REQUEST_ID")
+                        .HasColumnType("int")
+                        .HasComment("요청ID");
+
                     b.Property<string>("RESPONSE_DETAIL")
                         .HasColumnType("nvarchar(max)")
                         .HasComment("내용");
@@ -201,14 +200,13 @@ namespace Csr.Migrations
                         .HasColumnType("datetime")
                         .HasComment("종료일시");
 
-                    b.Property<string>("USER_ID1")
-                        .HasColumnType("varchar(20)");
+                    b.Property<string>("USER_ID")
+                        .HasColumnType("varchar(20)")
+                        .HasComment("사용자ID");
 
                     b.HasKey("RESPONSE_ID");
 
-                    b.HasIndex("CT_REQUESTREQUEST_ID");
-
-                    b.HasIndex("USER_ID1");
+                    b.HasIndex("REQUEST_ID");
 
                     b.ToTable("CT_RESPONSE");
 
@@ -323,9 +321,9 @@ namespace Csr.Migrations
                         new
                         {
                             USER_ID = "admin",
-                            CREATE_DTTM = new DateTime(2021, 12, 5, 22, 20, 22, 197, DateTimeKind.Local).AddTicks(7768),
+                            CREATE_DTTM = new DateTime(2021, 12, 7, 9, 13, 51, 815, DateTimeKind.Local).AddTicks(6515),
                             CREATE_USER_ID = "A",
-                            MODIFY_DTTM = new DateTime(2021, 12, 5, 22, 20, 22, 197, DateTimeKind.Local).AddTicks(7777),
+                            MODIFY_DTTM = new DateTime(2021, 12, 7, 9, 13, 51, 815, DateTimeKind.Local).AddTicks(6527),
                             MODIFY_USER_ID = "A",
                             USER_NM = "admin",
                             USER_PW = new byte[] { 97, 100, 109, 105, 110, 49 },
@@ -398,9 +396,9 @@ namespace Csr.Migrations
                         {
                             SYS_CD_GROUP = "REQUEST_TYPE",
                             SYS_CD = "Question",
-                            CREATE_DTTM = new DateTime(2021, 12, 5, 22, 20, 22, 197, DateTimeKind.Local).AddTicks(7880),
+                            CREATE_DTTM = new DateTime(2021, 12, 7, 9, 13, 51, 815, DateTimeKind.Local).AddTicks(6656),
                             CREATE_USER_ID = "admin",
-                            MODIFY_DTTM = new DateTime(2021, 12, 5, 22, 20, 22, 197, DateTimeKind.Local).AddTicks(7880),
+                            MODIFY_DTTM = new DateTime(2021, 12, 7, 9, 13, 51, 815, DateTimeKind.Local).AddTicks(6657),
                             MODIFY_USER_ID = "admin",
                             SORT_NO = 1m,
                             SYS_CD_NM = "단순문의"
@@ -409,9 +407,9 @@ namespace Csr.Migrations
                         {
                             SYS_CD_GROUP = "REQUEST_TYPE",
                             SYS_CD = "ProgramError",
-                            CREATE_DTTM = new DateTime(2021, 12, 5, 22, 20, 22, 197, DateTimeKind.Local).AddTicks(7889),
+                            CREATE_DTTM = new DateTime(2021, 12, 7, 9, 13, 51, 815, DateTimeKind.Local).AddTicks(6668),
                             CREATE_USER_ID = "admin",
-                            MODIFY_DTTM = new DateTime(2021, 12, 5, 22, 20, 22, 197, DateTimeKind.Local).AddTicks(7889),
+                            MODIFY_DTTM = new DateTime(2021, 12, 7, 9, 13, 51, 815, DateTimeKind.Local).AddTicks(6669),
                             MODIFY_USER_ID = "admin",
                             SORT_NO = 1m,
                             SYS_CD_NM = "프로그램오류"
@@ -420,9 +418,9 @@ namespace Csr.Migrations
                         {
                             SYS_CD_GROUP = "REQUEST_TYPE",
                             SYS_CD = "ModifyData",
-                            CREATE_DTTM = new DateTime(2021, 12, 5, 22, 20, 22, 197, DateTimeKind.Local).AddTicks(7896),
+                            CREATE_DTTM = new DateTime(2021, 12, 7, 9, 13, 51, 815, DateTimeKind.Local).AddTicks(6679),
                             CREATE_USER_ID = "admin",
-                            MODIFY_DTTM = new DateTime(2021, 12, 5, 22, 20, 22, 197, DateTimeKind.Local).AddTicks(7896),
+                            MODIFY_DTTM = new DateTime(2021, 12, 7, 9, 13, 51, 815, DateTimeKind.Local).AddTicks(6679),
                             MODIFY_USER_ID = "admin",
                             SORT_NO = 1m,
                             SYS_CD_NM = "데이터수정"
@@ -477,52 +475,31 @@ namespace Csr.Migrations
                         new
                         {
                             SYS_CD_GROUP = "REQUEST_TYPE",
-                            CREATE_DTTM = new DateTime(2021, 12, 5, 22, 20, 22, 197, DateTimeKind.Local).AddTicks(7867),
+                            CREATE_DTTM = new DateTime(2021, 12, 7, 9, 13, 51, 815, DateTimeKind.Local).AddTicks(6638),
                             CREATE_USER_ID = "admin",
-                            MODIFY_DTTM = new DateTime(2021, 12, 5, 22, 20, 22, 197, DateTimeKind.Local).AddTicks(7868),
+                            MODIFY_DTTM = new DateTime(2021, 12, 7, 9, 13, 51, 815, DateTimeKind.Local).AddTicks(6640),
                             MODIFY_USER_ID = "admin",
                             SORT_NO = 1m,
                             SYS_CD_GROUP_NM = "요청유형"
                         });
                 });
 
-            modelBuilder.Entity("Csr.Models.CT_PROJECT", b =>
-                {
-                    b.HasOne("Csr.Models.MD_CUSTOMER", "MD_CUSTOMER")
-                        .WithMany()
-                        .HasForeignKey("MD_CUSTOMERCUSTOMER_ID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("MD_CUSTOMER");
-                });
-
             modelBuilder.Entity("Csr.Models.CT_REQUEST", b =>
                 {
-                    b.HasOne("Csr.Models.MD_USER", "MD_USER")
-                        .WithMany()
-                        .HasForeignKey("MD_USERUSER_ID");
-
                     b.HasOne("Csr.Models.CT_PROJECT", "CT_PROJECT")
                         .WithMany()
                         .HasForeignKey("PROJECT_ID");
 
                     b.Navigation("CT_PROJECT");
-
-                    b.Navigation("MD_USER");
                 });
 
             modelBuilder.Entity("Csr.Models.CT_RESPONSE", b =>
                 {
                     b.HasOne("Csr.Models.CT_REQUEST", null)
-                        .WithMany("CT_RESPONSE")
-                        .HasForeignKey("CT_REQUESTREQUEST_ID");
-
-                    b.HasOne("Csr.Models.MD_USER", "USER_ID")
                         .WithMany()
-                        .HasForeignKey("USER_ID1");
-
-                    b.Navigation("USER_ID");
+                        .HasForeignKey("REQUEST_ID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Csr.Models.SYS_CODE", b =>
@@ -532,11 +509,6 @@ namespace Csr.Migrations
                         .HasForeignKey("SYS_CD_GROUP")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Csr.Models.CT_REQUEST", b =>
-                {
-                    b.Navigation("CT_RESPONSE");
                 });
 
             modelBuilder.Entity("Csr.Models.SYS_CODE_GROUP", b =>

@@ -19,7 +19,8 @@ namespace Csr.Models
         public string PROJECT_NM { get; set; }
 
         [Required]
-        [Comment("고객사")]
-        public MD_CUSTOMER MD_CUSTOMER { get; set; }
+        [Comment("고객사ID")]
+        [Column(TypeName = "varchar(20)")]
+        public string CUSTOMER_ID { get; set; }
     }
 }
