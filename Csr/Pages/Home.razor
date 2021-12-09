@@ -151,27 +151,6 @@
     </div>
 </div>
 
-<button @onclick="TestJs">테스트js </button>
-
-<div id="summernote">Hello Summernote</div>
-
-<div style="width:100%;min-width:50px;">
-    <div id="@NoteId">@Content</div>
-    <div align="right">
-        @if (_edit)
-        {
-            <button class="btn btn-primary" @onclick="Save">
-                <span class="oi oi-lock-locked"></span>
-            </button>
-        }
-        else
-        {
-            <button class="btn btn-primary" @onclick="Edit">
-                <span class="oi oi-lock-unlocked"></span>
-            </button>
-        }
-    </div>
-</div>
 
 @code {
 
@@ -213,24 +192,24 @@
         }
     }
 
-    public void TestJs()
-    {
-        _jsModule.InvokeVoidAsync("showAlert", "JS function called from .NET");
-        _jsModule.InvokeVoidAsync("setSummernote", "");
-    }
+    //public void TestJs()
+    //{
+    //    _jsModule.InvokeVoidAsync("showAlert", "JS function called from .NET");
+    //    _jsModule.InvokeVoidAsync("setSummernote", "summernote");
+    //}
 
-    IJSObjectReference _jsModule;
-    IJSObjectReference _jsSummernote;
-    protected override async void OnAfterRender(bool firstRender)
-    {
-        if (firstRender)
-        {
-            _jsModule = await Js.InvokeAsync<IJSObjectReference>("import", "/Pages/Home.razor.js");
+    //IJSObjectReference _jsModule;
+    //IJSObjectReference _jsSummernote;
+    //protected override async void OnAfterRender(bool firstRender)
+    //{
+    //    if (firstRender)
+    //    {
+    //        _jsModule = await Js.InvokeAsync<IJSObjectReference>("import", "/Pages/Home.razor.js");
             
-            await _jsModule.InvokeVoidAsync("showAlert", "JS function called from .NET");
-        }
-        base.OnAfterRender(firstRender);
-    }
+    //        await _jsModule.InvokeVoidAsync("showAlert", "JS function called from .NET");
+    //    }
+    //    base.OnAfterRender(firstRender);
+    //}
     //protected override async Task OnAfterRenderAsync(bool firstRender)
     //{
     //    if (firstRender) await JS.InvokeVoidAsync("windowMinWidthMatchesQuery", DotNetObjectReference.Create(this));
