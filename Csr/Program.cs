@@ -41,6 +41,9 @@ builder.Services.AddServerSideBlazor();
 //builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
 //builder.Services.AddSingleton<WeatherForecastService>();
 
+//HttpContext 추가
+builder.Services.AddHttpContextAccessor();
+
 //MudBlazor 추가
 builder.Services.AddMudServices();
 

@@ -1,0 +1,91 @@
+﻿@page "/settings/adduser"
+@inject CsrDbContext csrDbContext
+@*//@inject HttpContext httpContext*@
+@inject IHttpContextAccessor httpContextAccessor
+
+
+<h3>AddUser</h3>
+<div style="max-width: 400px;">
+    <EditForm Model="@model" OnValidSubmit="OnValidSubmit">
+        <DataAnnotationsValidator />
+        <MudCard>
+            <MudCardContent>
+                <MudTextField Label="사용자ID" HelperText="Max. 8 characters"
+                              @bind-Value="model.UserID" For="@(() => model.UserID)" />
+                <MudTextField Label="비밀번호" HelperText="Choose a strong password" Class="mt-3"
+                              @bind-Value="model.UserPW" For="@(() => model.UserPW)" InputType="InputType.Password" />
+                <MudTextField Label="사용자명" Class="mt-3"
+                              @bind-Value="model.UserNm" For="@(() => model.UserNm)" />
+                <MudTextField Label="E-Mail" Class="mt-3"
+                              @bind-Value="model.Email" For="@(() => model.Email)" />
+                <MudTextField Label="업체" Class="mt-3"
+                              @bind-Value="model.CustomerID" For="@(() => model.CustomerID)" />
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Register</MudButton>
+            </MudCardActions>
+        </MudCard>
+        <MudText Typo="Typo.body2" Align="Align.Center" Class="my-4">
+            Fill out the form correctly to see the success message.
+        </MudText>
+
+        <MudExpansionPanels>
+            <MudExpansionPanel Text="Show Validation Summary">
+                @if (success)
+                {
+                    <MudText Color="Color.Success">Success</MudText>
+                }
+                else
+                {
+                    <MudText Color="@Color.Error">
+                        <ValidationSummary />
+                    </MudText>
+                }
+            </MudExpansionPanel>
+        </MudExpansionPanels>
+    </EditForm>
+</div>
+
+@code {
+    public AddUserModel model { get; set; } = new AddUserModel();
+    private bool success;
+
+    [Inject]
+    public NavigationManager navigationManager { get; set; }
+
+    //[Inject]
+    //public CsrDbContext csrDbContext { get; set; }
+    //[Inject]
+    //public HttpContext httpContext { get; set; }
+    //private void OnValidSubmit(EditContext context)
+    private void OnValidSubmit(EditContext context)
+    {
+
+
+        success = true;
+        MD_USER mdUser = new();
+        mdUser.USER_ID = model.UserID;
+        mdUser.USER_PW = model.UserPW;
+        mdUser.USER_NM = model.UserNm;
+        mdUser.USER_ROLE = UserRole.CustomerUser;
+        mdUser.CREATE_DTTM = DateTime.Now;
+        mdUser.MODIFY_DTTM = DateTime.Now;
+        mdUser.CREATE_USER_ID = httpContextAccessor.HttpContext.User.Identity.Name;
+        mdUser.MODIFY_USER_ID = httpContextAccessor.HttpContext.User.Identity.Name;
+
+        csrDbContext.MD_USER.Add(mdUser);
+        int rst = csrDbContext.SaveChanges();
+
+        if (rst > 0)
+        {
+            navigationManager.NavigateTo("/settings/users");
+        }
+        else
+        {
+            
+        }
+
+        StateHasChanged();
+    }
+
+}
