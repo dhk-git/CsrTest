@@ -1,0 +1,128 @@
+﻿@page "/requestboard/addrequest"
+@using Csr.Components.Editor
+@inject CsrDbContext ctx
+@inject NavigationManager navi
+@inject IHttpContextAccessor httpCtx
+
+<h3>AddRequest</h3>
+
+<div style="max-width: 800px;">
+    <EditForm Model="@model" OnValidSubmit="OnValidSubmit">
+        <DataAnnotationsValidator />
+        <MudCard>
+            <MudCardContent>
+                <MudTextField Label="요청유형" HelperText="Max. 8 characters"
+                              @bind-Value="model.RequestType" For="@(() => model.RequestType)" />
+                <MudTextField Label="제목" HelperText="Choose a strong password" Class="mt-3"
+                              @bind-Value="model.Title" For="@(() => model.Title)" InputType="InputType.Text" />
+                <MudTextField Label="업체명" Class="mt-3"
+                              @bind-Value="model.CustomerID" For="@(() => model.CustomerID)" />
+                <MudTextField Label="프로젝트" Class="mt-3"
+                              @bind-Value="model.ProjectID" For="@(() => model.ProjectID)" />
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Register</MudButton>
+            </MudCardActions>
+        </MudCard>
+        <MudText Typo="Typo.body2" Align="Align.Center" Class="my-4">
+            Fill out the form correctly to see the success message.
+        </MudText>
+
+        <MudExpansionPanels>
+            <MudExpansionPanel Text="Show Validation Summary">
+                @if (success)
+                {
+                    <MudText Color="Color.Success">Success</MudText>
+                }
+                else
+                {
+                    <MudText Color="@Color.Error">
+                        <ValidationSummary />
+                    </MudText>
+                }
+            </MudExpansionPanel>
+        </MudExpansionPanels>
+    </EditForm>
+                    <div style="height:500px">
+                    <BlazoredTextEditor @ref="@QuillHtml">
+                        <ToolbarContent>
+                            <select class="ql-header">
+                                <option selected=""></option>
+                                <option value="1"></option>
+                                <option value="2"></option>
+                                <option value="3"></option>
+                                <option value="4"></option>
+                                <option value="5"></option>
+                            </select>
+                            <span class="ql-formats">
+                                <button class="ql-bold"></button>
+                                <button class="ql-italic"></button>
+                                <button class="ql-underline"></button>
+                                <button class="ql-strike"></button>
+                            </span>
+                            <span class="ql-formats">
+                                <select class="ql-color"></select>
+                                <select class="ql-background"></select>
+                            </span>
+                            <span class="ql-formats">
+                                <button class="ql-list" value="ordered"></button>
+                                <button class="ql-list" value="bullet"></button>
+                                <button class="ql-indent" value="-1"></button>
+                                <button class="ql-indent" value="+1"></button>
+                                <select class="ql-align">
+                                    <option selected=""></option>
+                                    <option value="center"></option>
+                                    <option value="right"></option>
+                                    <option value="justify"></option>
+                                </select>
+                            </span>
+                            <span class="ql-formats">
+                                <button class="ql-code-block" value="code-block"></button>
+                                <button class="ql-link"></button>
+                            </span>
+
+                        </ToolbarContent>
+                        <EditorContent>
+                            @model.Content
+                        </EditorContent>
+                    </BlazoredTextEditor>
+                </div>
+
+</div>
+
+@code {
+    public AddRequestModel model { get; set; } = new AddRequestModel();
+    private bool success;
+    BlazoredTextEditor QuillHtml;
+    public string QuillHTMLContent;
+
+
+    private async void OnValidSubmit(EditContext context)
+    {
+        var content = await this.QuillHtml.GetHTML();
+        StateHasChanged();
+        success = true;
+        CT_REQUEST newModel = new();
+        newModel.REQUEST_TITLE = model.Title;
+        newModel.REQUEST_CONTENT = content;
+        newModel.CREATE_DT = DateTime.Now.Date;
+        newModel.CREATE_USER_ID = httpCtx.HttpContext.User.Identity.Name;
+        newModel.CREATE_DTTM = DateTime.Now;
+        newModel.MODIFY_USER_ID = httpCtx.HttpContext.User.Identity.Name;
+        newModel.MODIFY_DTTM = DateTime.Now;
+        newModel.REQUEST_TYPE = model.RequestType;
+        ctx.CT_REQUEST.Add(newModel);
+        int rst = ctx.SaveChanges();
+
+        if (rst > 0)
+        {
+            navi.NavigateTo("/requestboard/requestlist");
+        }
+        else
+        {
+
+        }
+
+        StateHasChanged();
+    }
+}

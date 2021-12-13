@@ -1,0 +1,134 @@
+﻿
+<div style="height:500px">
+    <BlazoredTextEditor @ref="@QuillHtml">
+        <ToolbarContent>
+            <select class="ql-header">
+                <option selected=""></option>
+                <option value="1"></option>
+                <option value="2"></option>
+                <option value="3"></option>
+                <option value="4"></option>
+                <option value="5"></option>
+            </select>
+            <span class="ql-formats">
+                <button class="ql-bold"></button>
+                <button class="ql-italic"></button>
+                <button class="ql-underline"></button>
+                <button class="ql-strike"></button>
+            </span>
+            <span class="ql-formats">
+                <select class="ql-color"></select>
+                <select class="ql-background"></select>
+            </span>
+            <span class="ql-formats">
+                <button class="ql-list" value="ordered"></button>
+                <button class="ql-list" value="bullet"></button>
+            </span>
+            <span class="ql-formats">
+                <button class="ql-link"></button>
+            </span>
+
+            <span class="ql-formats">
+                <select class="ql-font">
+                    <option selected=""></option>
+                    <option value="serif"></option>
+                    <option value="monospace"></option>
+                </select>
+                <select class="ql-size">
+                    <option value="small"></option>
+                    <option selected=""></option>
+                    <option value="large"></option>
+                    <option value="huge"></option>
+                </select>
+            </span>
+            <span class="ql-formats">
+                <button class="ql-bold"></button>
+                <button class="ql-italic"></button>
+                <button class="ql-underline"></button>
+                <button class="ql-strike"></button>
+            </span>
+            <span class="ql-formats">
+                <select class="ql-color"></select>
+                <select class="ql-background"></select>
+            </span>
+            <span class="ql-formats">
+                <button class="ql-code-block" value="code-block"></button>
+                <button class="ql-list" value="ordered"></button>
+                <button class="ql-list" value="bullet"></button>
+                <button class="ql-indent" value="-1"></button>
+                <button class="ql-indent" value="+1"></button>
+                <select class="ql-align">
+                    <option selected=""></option>
+                    <option value="center"></option>
+                    <option value="right"></option>
+                    <option value="justify"></option>
+                </select>
+            </span>
+            <span class="ql-formats">
+                <button class="ql-link"></button>
+            </span>
+        </ToolbarContent>
+        <EditorContent>
+            @Content
+        </EditorContent>
+    </BlazoredTextEditor>
+</div>
+@*<br />
+    <button class="btn btn-primary"
+    @onclick="GetHTML">
+    Get HTML
+    </button>
+    <button class="btn btn-primary"
+    @onclick="SetHTML">
+    Set HTML
+    </button>
+    <br />
+    <div>
+    <br />
+    @((MarkupString)QuillHTMLContent)
+    @QuillHTMLContent
+    </div>
+    <br />*@
+
+@code {
+
+    BlazoredTextEditor QuillHtml;
+    public string QuillHTMLContent;
+    public string _content;
+    [Parameter]
+    public EventCallback<string> OnContentChanged { get; set; }
+    [Parameter]
+    public string Content
+    {
+        get
+        {
+            return _content;
+        }
+        set
+        {
+            _content = value;
+            OnContentChanged.InvokeAsync(value);
+        }
+    }
+
+    
+
+    public async void GetHTML()
+    {
+        QuillHTMLContent = await this.QuillHtml.GetHTML();
+        StateHasChanged();
+    }
+
+    public void ChangeContentEvent(ChangeEventArgs e)
+    {
+
+    }
+
+    public async void SetHTML()
+    {
+        string QuillContent = "AAAA";
+
+        await this.QuillHtml.LoadHTMLContent(QuillContent);
+        StateHasChanged();
+    }
+}

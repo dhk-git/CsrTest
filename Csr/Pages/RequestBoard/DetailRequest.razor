@@ -1,0 +1,21 @@
+﻿@page "/requestboard/detailrequest/{RequestID}"
+
+<h3>DetailRequest</h3>
+
+<div>
+    @((MarkupString)SelectedRequestModel.REQUEST_CONTENT)
+</div>
+
+
+@code {
+    public CT_REQUEST SelectedRequestModel { get; set; }
+    [Inject]
+    public CsrDbContext Ctx { get; set; }
+    [Parameter]
+    public string RequestID { get; set; }
+
+    protected async override Task OnInitializedAsync()
+    {
+        SelectedRequestModel = Ctx.CT_REQUEST.Where(a => a.REQUEST_ID == Convert.ToInt32(RequestID)).SingleOrDefault();
+    }
+}

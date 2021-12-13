@@ -57,7 +57,7 @@ namespace Csr.Shared
                 SortNo = 2f,
                 MenuID = "M002",
                 MenuName = "접수목록",
-                Href = "/counter",
+                Href = "/requestboard/requestlist",
                 IconPath = GetIconPath("Icons.Filled.Ballot"),
                 IconColor = GetColor("Color.Info")
             };

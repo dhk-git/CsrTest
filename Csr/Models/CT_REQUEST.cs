@@ -15,7 +15,7 @@ namespace Csr.Models
         
         [Column(TypeName = "varchar(50)")]
         [Comment("요청유형")]
-        public string REQUEST_TYPE { get; set; }   //단순문의, 프로그램오류, 데이터수정
+        public RequestType REQUEST_TYPE { get; set; }   //단순문의, 프로그램오류, 데이터수정
 
         [Column(TypeName = "varchar(50)")]
         [Comment("긴급도")]
@@ -30,9 +30,9 @@ namespace Csr.Models
         [ForeignKey("PROJECT_ID")]
         public CT_PROJECT CT_PROJECT { get; set; }
 
-        [Comment("사용자ID")]
-        [Column(TypeName = "varchar(20)")]
-        public string USER_ID { get; set; }
+        //[Comment("사용자ID")]
+        //[Column(TypeName = "varchar(20)")]
+        //public string USER_ID { get; set; }
         
         [Column(TypeName = "nvarchar(100)")]
         [Comment("제목")]
@@ -40,7 +40,7 @@ namespace Csr.Models
         
         [Column(TypeName = "nvarchar(max)")]
         [Comment("내용")]
-        public string REQUEST_DETAIL { get; set; }
+        public string REQUEST_CONTENT { get; set; }
 
         [Column(TypeName = "varchar(50)")]
         [Comment("요청상태")]
@@ -50,6 +50,13 @@ namespace Csr.Models
         //[Column(TypeName = "int")]
         //[ForeignKey("RESPONSE_ID")]
         //public virtual ICollection<CT_RESPONSE> CT_RESPONSE { get; set; }
+    }
+
+    public enum RequestType
+    {
+        SimpleQuestion,
+        ProgramError,
+        ModifyData
     }
         
 }

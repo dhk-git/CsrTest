@@ -1,0 +1,72 @@
+﻿@page "/requestboard/requestlist"
+
+<h3>RequestList</h3>
+
+<p>
+    <a href="/requestboard/addrequest">Add Request</a>
+</p>
+
+<MudTable T="CT_REQUEST" Items="@SelectedRequestModels" Dense="@dense" Hover="@hover" Bordered="@bordered" CanCancelEdit="@canCancelEdit"
+          Striped="@striped" Filter="new Func<CT_REQUEST,bool>(FilterFunc1)" @bind-SelectedItem="selectedItem1"
+          OnRowClick="@OnRowClick">
+    <ToolBarContent>
+        <MudText Typo="Typo.h6">UserList</MudText>
+        <MudSpacer />
+        <MudTextField @bind-Value="searchString1" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh Class="text-center">No. </MudTh>
+        <MudTh Class="text-center">요청유형</MudTh>
+        <MudTh Class="text-center">요청일자</MudTh>
+        <MudTh Class="text-center">제목</MudTh>
+        <MudTh Class="text-center">작성자</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd Class="text-center" DataLabel="REQUEST_ID">@context.REQUEST_ID</MudTd>
+        <MudTd Class="text-center" DataLabel="REQUEST_TYPE">@context.REQUEST_TYPE</MudTd>
+        <MudTd Class="text-center" DataLabel="CREATE_DT">@context.CREATE_DT</MudTd>
+        <MudTd Class="text-center" DataLabel="REQUEST_TITLE">@context.REQUEST_TITLE</MudTd>
+        <MudTd Class="text-center" DataLabel="CREATE_USER_ID">@context.CREATE_USER_ID</MudTd>
+        <MudTd Class="text-center">
+            <a href="/requestboard/editrequest/@context.REQUEST_ID">Edit</a>
+            <a href="/requestboard/deleterequest/@context.REQUEST_ID">Delete</a>
+        </MudTd>
+    </RowTemplate>
+    <PagerContent>
+        <MudTablePager />
+    </PagerContent>
+</MudTable>
+
+
+@code {
+    [Inject]
+    public NavigationManager Navi { get; set; }
+    private bool dense = true;
+    private bool hover = true;
+    private bool striped = true;
+    private bool bordered = false;
+    private string searchString1 = "";
+    private string searchString2 = "";
+    private bool canCancelEdit = true;
+
+    private CT_REQUEST selectedItem1 = null;
+    private bool FilterFunc1(CT_REQUEST req) => FilterFunc(req, searchString1);
+
+    private bool FilterFunc(CT_REQUEST req, string searchString)
+    {
+        if (string.IsNullOrWhiteSpace(searchString))
+            return true;
+        if (req.REQUEST_TITLE.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+        //if (req..Contains(searchString, StringComparison.OrdinalIgnoreCase))
+        //    return true;
+        //if ($"{req.USER_ID} {req.USER_NM}".Contains(searchString))
+        //    return true;
+        return false;
+    }
+
+    public void OnRowClick(TableRowClickEventArgs<CT_REQUEST> e)
+    {
+        Navi.NavigateTo($"/requestboard/detailrequest/{e.Item.REQUEST_ID}");
+    }
+}
