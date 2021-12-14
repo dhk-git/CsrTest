@@ -20,13 +20,14 @@
         <MudTh Class="text-center">요청일자</MudTh>
         <MudTh Class="text-center">제목</MudTh>
         <MudTh Class="text-center">작성자</MudTh>
+        <MudTh Class="text-center">수정/삭제</MudTh>
     </HeaderContent>
     <RowTemplate>
-        <MudTd Class="text-center" DataLabel="REQUEST_ID">@context.REQUEST_ID</MudTd>
-        <MudTd Class="text-center" DataLabel="REQUEST_TYPE">@context.REQUEST_TYPE</MudTd>
-        <MudTd Class="text-center" DataLabel="CREATE_DT">@context.CREATE_DT</MudTd>
-        <MudTd Class="text-center" DataLabel="REQUEST_TITLE">@context.REQUEST_TITLE</MudTd>
-        <MudTd Class="text-center" DataLabel="CREATE_USER_ID">@context.CREATE_USER_ID</MudTd>
+        <MudTd Style="cursor:pointer" Class="text-center" DataLabel="REQUEST_ID">@context.REQUEST_ID</MudTd>
+        <MudTd Style="cursor:pointer" Class="text-center" DataLabel="REQUEST_TYPE">@context.REQUEST_TYPE</MudTd>
+        <MudTd Style="cursor:pointer" Class="text-center" DataLabel="CREATE_DT">@context.CREATE_DT</MudTd>
+        <MudTd Style="cursor:pointer" Class="text-center" DataLabel="REQUEST_TITLE">@context.REQUEST_TITLE</MudTd>
+        <MudTd Style="cursor:pointer" Class="text-center" DataLabel="CREATE_USER_ID">@context.CREATE_USER_ID</MudTd>
         <MudTd Class="text-center">
             <a href="/requestboard/editrequest/@context.REQUEST_ID">Edit</a>
             <a href="/requestboard/deleterequest/@context.REQUEST_ID">Delete</a>
